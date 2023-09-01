@@ -6,6 +6,11 @@
 1. 服务器支持集群化部署，每个im-server仅处理自身连接用户的消息
 
 
+#### 近期更新
+1. 支持发送emoji表情
+1. 支持发送语音消息
+1. 支持撤回和删除消息
+1. 支持视频聊天(基于webrtc实现,需要ssl证书)
 
 
 #### 在线体验
@@ -26,6 +31,14 @@
 | im-server   | 推送聊天消息|
 | im-client   | 消息推送sdk|
 | im-common   | 公共包  |
+
+
+#### 消息推送方案
+![输入图片说明](%E6%88%AA%E5%9B%BE/%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%E9%9B%86%E7%BE%A4%E5%8C%96.jpg)
+
+- 当消息的发送者和接收者连的不是同一个server时，消息是无法直接推送的，所以我们需要设计出能够支持跨节点推送的方案
+- 利用了redis的list数据实现消息推送，其中key为im:unread:${serverid},每个key的数据可以看做一个queue,每个im-server根据自身的id只消费属于自己的queue
+- redis记录了每个用户的websocket连接的是哪个im-server,当用户发送消息时，im-platform将根据所连接的im-server的id,决定将消息推向哪个queue
 
 
 #### 本地快速部署
