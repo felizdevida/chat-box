@@ -191,6 +191,7 @@ wsApi.onmessage((cmd,messageInfo) => {
 ![输入图片说明](%E6%88%AA%E5%9B%BE/%E5%8F%91%E9%80%81%E8%AF%AD%E9%9F%B3.jpg)
 
 群聊：
+
 ![输入图片说明](%E6%88%AA%E5%9B%BE/%E7%BE%A4%E8%81%8A.jpg) 
 
 好友列表：
@@ -199,14 +200,4 @@ wsApi.onmessage((cmd,messageInfo) => {
 群聊列表：
 ![输入图片说明](%E6%88%AA%E5%9B%BE/%E7%BE%A4%E8%81%8A%E5%88%97%E8%A1%A8.jpg)
 
-
-#### QQ交流群
-
-![输入图片说明](%E6%88%AA%E5%9B%BE/%E4%BA%A4%E6%B5%81%E7%BE%A4.png)
-
-有任何问题，欢迎加群交流~
-
-
-#### 点下star吧
-喜欢的朋友麻烦点个star，鼓励一下作者吧！
 
