@@ -11,7 +11,7 @@
 
     <modules>
         <module>chat-platform</module>
-        <module>im-server</module>
+        <module>chat-server</module>
         <module>chat-common</module>
         <module>chat-client</module>
     </modules>

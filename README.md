@@ -3,7 +3,7 @@
 1. 聊天盒子是一个仿微信实现的网页版聊天软件，目前完全开源，仅用于学习和交流。
 1. 支持私聊、群聊、离线消息、发送图片、文件、好友在线状态显示等功能。
 1. 后端采用springboot+netty实现，前端使用vue。
-1. 服务器支持集群化部署，每个im-server仅处理自身连接用户的消息
+1. 服务器支持集群化部署，每个chat-server仅处理自身连接用户的消息
 
 
 
@@ -22,8 +22,8 @@
 ![输入图片说明](%E6%88%AA%E5%9B%BE/%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%E9%9B%86%E7%BE%A4%E5%8C%96.jpg)
 
 - 当消息的发送者和接收者连的不是同一个server时，消息是无法直接推送的，所以我们需要设计出能够支持跨节点推送的方案
-- 利用了redis的list数据实现消息推送，其中key为im:unread:${serverid},每个key的数据可以看做一个queue,每个im-server根据自身的id只消费属于自己的queue
-- redis记录了每个用户的websocket连接的是哪个im-server,当用户发送消息时，im-platform将根据所连接的im-server的id,决定将消息推向哪个queue
+- 利用了redis的list数据实现消息推送，其中key为im:unread:${serverid},每个key的数据可以看做一个queue,每个chat-server根据自身的id只消费属于自己的queue
+- redis记录了每个用户的websocket连接的是哪个chat-server,当用户发送消息时，chat-platform将根据所连接的chat-server的id,决定将消息推向哪个queue
 
 
 #### 本地快速部署
@@ -31,27 +31,27 @@
 - 安装node:v14.16.0
 - 安装jdk:1.8
 - 安装maven:3.6.3
-- 安装mysql:5.7,密码分别为root/root,运行sql脚本(脚本在im-platfrom的resources/db目录)
+- 安装mysql:5.7,密码分别为root/root,运行sql脚本(脚本在chat-platfrom的resources/db目录)
 - 安装redis:4.0
-- 安装minio，命令端口使用9001，并创建一个名为"box-im"的bucket，并设置访问权限为公开
+- 安装minio，命令端口使用9001，并创建一个名为"chat-box"的bucket，并设置访问权限为公开
 
 2.启动后端服务
 ```
 mvn clean package
-java -jar ./im-platform/target/im-platform.jar
-java -jar ./im-server/target/im-server.jar
+java -jar ./chat-platform/target/chat-platform.jar
+java -jar ./chat-server/target/chat-server.jar
 ```
 
 3.启动前端ui
 ```
-cd im-ui
+cd chat-ui
 npm install
 npm run serve
 ```
 
 4.访问localhost:8080
 #### 快速接入
-消息推送的请求代码已经封装在chat-client包中，对于需要接入im-server的小伙伴，可以按照下面的教程快速的将聊天功能集成到自己的项目中。
+消息推送的请求代码已经封装在chat-client包中，对于需要接入chat-server的小伙伴，可以按照下面的教程快速的将聊天功能集成到自己的项目中。
 
 注意服务器端和网页端都需要接入，服务器端发送消息，网页端接收消息。
 
@@ -136,7 +136,7 @@ public class PrivateMessageListener implements MessageListener {
 ```
 
 4.2 网页端接入
-首先将im-ui/src/api/wssocket.js拷贝到自己的项目。
+首先将chat-ui/src/api/wssocket.js拷贝到自己的项目。
 
 接入代码如下：
 ```
