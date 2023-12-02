@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/box-im?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/chat-box?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
     username: root
     password: root
 
@@ -33,7 +33,7 @@ minio:
   public: http://127.0.0.1:9001  #外网访问地址
   accessKey: admin
   secretKey: 12345678
-  bucketName: box-im
+  bucketName: chat-box
   imagePath: image
   filePath: file
 

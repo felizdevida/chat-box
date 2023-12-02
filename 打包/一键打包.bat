@@ -1,21 +1,21 @@
-rem É¾³ý¾ÉÎÄ¼þ
-del /f /s /q  ".\im-platform.jar"
-del /f /s /q  ".\im-server.jar"
-del /f /s /q  ".\im-ui.zip"
-rd  /s /q  ".\im-ui"
+rem É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+del /f /s /q  ".\chat-platform.jar"
+del /f /s /q  ".\chat-server.jar"
+del /f /s /q  ".\chat-ui.zip"
+rd  /s /q  ".\chat-ui"
 
-rem ±àÒëjavaÏîÄ¿
+rem ï¿½ï¿½ï¿½ï¿½javaï¿½ï¿½Ä¿
 call mvn clean package -f ../pom.xml
 
-rem ¿½±´jar°ü
-copy  "..\im-platform\target\im-platform.jar"   ".\"
-copy  "..\im-server\target\im-server.jar"   ".\"
+rem ï¿½ï¿½ï¿½ï¿½jarï¿½ï¿½
+copy  "..\chat-platform\target\chat-platform.jar"   ".\"
+copy  "..\chat-server\target\chat-server.jar"   ".\"
 
-rem ´ò°üÇ°¶Ë×ÊÔ´
-call npm run build --prefix  ..\im-ui\
-md im-ui
-xcopy  "..\im-ui\dist"   ".\im-ui" /e /y 
+rem ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Ô´
+call npm run build --prefix  ..\chat-ui\
+md chat-ui
+xcopy  "..\chat-ui\dist"   ".\chat-ui" /e /y
 
-echo  ´ò°üÍê³É..........
+echo  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½..........
 pause
 
