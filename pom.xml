@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>box-im</artifactId>
+    <artifactId>chat-box</artifactId>
     <groupId>com.bx</groupId>
     <packaging>pom</packaging>
     <version>1.1.0</version>
 
     <modules>
-        <module>im-platform</module>
+        <module>chat-platform</module>
         <module>im-server</module>
-        <module>im-commom</module>
-        <module>im-client</module>
+        <module>chat-common</module>
+        <module>chat-client</module>
     </modules>
 
     <properties>

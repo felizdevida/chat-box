@@ -1,6 +1,6 @@
 
 #### 项目介绍
-1. 盒子IM是一个仿微信实现的网页版聊天软件，目前完全开源，仅用于学习和交流。
+1. 聊天盒子是一个仿微信实现的网页版聊天软件，目前完全开源，仅用于学习和交流。
 1. 支持私聊、群聊、离线消息、发送图片、文件、好友在线状态显示等功能。
 1. 后端采用springboot+netty实现，前端使用vue。
 1. 服务器支持集群化部署，每个im-server仅处理自身连接用户的消息
@@ -10,13 +10,20 @@
 
 
 #### 项目结构
-|  模块  |     功能 |
-|-------------|------------|
-| im-platform | 与页面进行交互，处理业务请求 |
-| im-server   | 推送聊天消息|
-| im-client   | 消息推送sdk|
-| im-common   | 公共包  |
+| 模块            |     功能 |
+|---------------|------------|
+| chat-platform | 与页面进行交互，处理业务请求 |
+| chat-server   | 推送聊天消息|
+| chat-client   | 消息推送sdk|
+| chat-common   | 公共包  |
 
+
+#### 消息推送方案
+![输入图片说明](%E6%88%AA%E5%9B%BE/%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%E9%9B%86%E7%BE%A4%E5%8C%96.jpg)
+
+- 当消息的发送者和接收者连的不是同一个server时，消息是无法直接推送的，所以我们需要设计出能够支持跨节点推送的方案
+- 利用了redis的list数据实现消息推送，其中key为im:unread:${serverid},每个key的数据可以看做一个queue,每个im-server根据自身的id只消费属于自己的queue
+- redis记录了每个用户的websocket连接的是哪个im-server,当用户发送消息时，im-platform将根据所连接的im-server的id,决定将消息推向哪个queue
 
 
 #### 本地快速部署
@@ -44,7 +51,7 @@ npm run serve
 
 4.访问localhost:8080
 #### 快速接入
-消息推送的请求代码已经封装在im-client包中，对于需要接入im-server的小伙伴，可以按照下面的教程快速的将IM功能集成到自己的项目中。
+消息推送的请求代码已经封装在chat-client包中，对于需要接入im-server的小伙伴，可以按照下面的教程快速的将聊天功能集成到自己的项目中。
 
 注意服务器端和网页端都需要接入，服务器端发送消息，网页端接收消息。
 
@@ -54,7 +61,7 @@ npm run serve
 ```
 <dependency>
     <groupId>com.box</groupId>
-    <artifactId>im-client</artifactId>
+    <artifactId>chat-client</artifactId>
     <version>1.1.0</version>
 </dependency>
 ```
@@ -169,7 +176,7 @@ wsApi.onmessage((cmd,messageInfo) => {
 ![输入图片说明](%E6%88%AA%E5%9B%BE/%E5%8F%91%E9%80%81%E8%AF%AD%E9%9F%B3.jpg)
 
 群聊：
-![输入图片说明](%E6%88%AA%E5%9B%BE/%E7%BE%A4%E8%81%8A.jpg) 
+![输入图片说明](%E6%88%AA%E5%9B%BE/%E7%BE%A4%E8%81%8A.jpg)
 
 好友列表：
 ![输入图片说明](%E6%88%AA%E5%9B%BE/%E5%A5%BD%E5%8F%8B%E5%88%97%E8%A1%A8.jpg)
